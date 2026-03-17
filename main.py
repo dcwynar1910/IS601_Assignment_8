@@ -16,14 +16,23 @@ load_dotenv()
 
 # Setup logging
 try:
-    logging_dir = Path(os.getenv("CALCULATOR_LOG_DIR", str(Path(__file__).parent.parent / "logs")))
-    os.makedirs(logging_dir, exist_ok = True)
-    log_file = Path(os.getenv("CALCULATOR_LOG_FILE", str(logging_dir / "calculator.log"))).resolve()
+    #logging_dir = Path(os.getenv("CALCULATOR_LOG_DIR", str(Path(__file__).resolve().parent / "logs")))
+    #logging_dir = Path(str(Path(__file__).resolve().parent / "logs"))
+    #logging_dir.mkdir(parents=True, exist_ok = True)
+    #log_file = Path(os.getenv("CALCULATOR_LOG_FILE", str(logging_dir / "calculator.log"))).resolve()
+    #log_file = os.path.join(logging_dir, "calculator.log")#.resolve()
+    #log_file = logging_dir / "calculator.log"
+    #os.mkdir("tmp")
+    log_file = "/tmp/calculator.log"
+    #log_filepath = Path(logging_dir / log_file)
 
     logging.basicConfig(
-        filename=str(log_file),
+        #filename=str(log_file),
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[
+        logging.FileHandler(str(log_file)),
+        logging.StreamHandler()],
         force=True  
     )
     logging.info(f"Logging initialized at: {log_file}")
