@@ -28,7 +28,7 @@ services:
     # Volume Mounting
     volumes:
       - .:/app  # Mounts the current directory (host) to the `/app` directory inside the container. This facilitates live updates by reflecting changes made in the host directory within the container without rebuilding the image.
-    
+      #- ./logs:/tmp
     # Environment Variables
     environment:
       - PYTHONDONTWRITEBYTECODE=1  # Prevents Python from writing `.pyc` files to disk. This ensures that only source code is maintained, keeping the container clean.
