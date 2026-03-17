@@ -19,6 +19,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 RUN chown -R appuser:appgroup /app
 
+RUN mkdir -p /app/logs && chmod -R 777 /app/logs
 USER appuser
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
