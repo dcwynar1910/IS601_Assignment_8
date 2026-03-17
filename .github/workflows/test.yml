@@ -37,6 +37,7 @@ jobs:
          pytest tests/unit/ --cov=src --junitxml=test-results/junit.xml
          pytest tests/integration/
          pytest tests/e2e/
+         pytest tests/operations/
 
  security:
    needs: test
