@@ -152,3 +152,101 @@ def test_divide_by_zero_api(client):
     # Assert that the 'error' field contains the correct error message
     assert "Cannot divide by zero!" in response.json()['error'], \
         f"Expected error message 'Cannot divide by zero!', got '{response.json()['error']}'"
+
+
+def test_power_api(client):
+
+    # Send a POST request to the '/power' endpoint with JSON payload
+    response = client.post('/power', json={'a': 5, 'b': 2})
+    
+    # Assert that the response status code is 200 (OK)
+    assert response.status_code == 200, f"Expected status code 200, got {response.status_code}"
+    
+    # Assert that the JSON response contains the correct 'result' value
+    assert response.json()['result'] == 25, f"Expected result 25, got {response.json()['result']}"
+
+# -------------------------------
+
+def test_root_api(client):
+
+    # Send a POST request to the '/power' endpoint with JSON payload
+    response = client.post('/root', json={'a': 9, 'b': 2})
+    
+    # Assert that the response status code is 200 (OK)
+    assert response.status_code == 200, f"Expected status code 200, got {response.status_code}"
+    
+    # Assert that the JSON response contains the correct 'result' value
+    assert response.json()['result'] == 3, f"Expected result 3, got {response.json()['result']}"
+
+
+def test_moduls_api(client):
+
+    # Send a POST request to the '/power' endpoint with JSON payload
+    response = client.post('/modulus', json={'a': 36, 'b': 5})
+    
+    # Assert that the response status code is 200 (OK)
+    assert response.status_code == 200, f"Expected status code 200, got {response.status_code}"
+    
+    # Assert that the JSON response contains the correct 'result' value
+    assert response.json()['result'] == 1, f"Expected result 1, got {response.json()['result']}"
+
+
+def test_power_under_zero_api(client):
+
+    # Send a POST request to the '/divide' endpoint with JSON payload attempting division by zero
+    response = client.post('/power', json={'a': 10, 'b': -1})
+    
+    # Assert that the response status code is 400 (Bad Request), indicating an error occurred
+    assert response.status_code == 400, f"Expected status code 400, got {response.status_code}"
+    
+    # Assert that the JSON response contains an 'error' field
+    assert 'error' in response.json(), "Response JSON does not contain 'error' field"
+    
+    # Assert that the 'error' field contains the correct error message
+    assert "Negative power is not allowed!" in response.json()['error'], \
+        f"Expected error message 'Negative power is not allowed!', got '{response.json()['error']}'"
+    
+def test_root_by_zero_api(client):
+
+    # Send a POST request to the '/divide' endpoint with JSON payload attempting division by zero
+    response = client.post('/root', json={'a': 10, 'b': 0})
+    
+    # Assert that the response status code is 400 (Bad Request), indicating an error occurred
+    assert response.status_code == 400, f"Expected status code 400, got {response.status_code}"
+    
+    # Assert that the JSON response contains an 'error' field
+    assert 'error' in response.json(), "Response JSON does not contain 'error' field"
+    
+    # Assert that the 'error' field contains the correct error message
+    assert "Degree of zero is not allowed!" in response.json()['error'], \
+        f"Expected error message 'Degree of zero is not allowed!', got '{response.json()['error']}'"
+    
+def test_root_by_negative_api(client):
+
+    # Send a POST request to the '/divide' endpoint with JSON payload attempting division by zero
+    response = client.post('/root', json={'a': -10, 'b': 2})
+    
+    # Assert that the response status code is 400 (Bad Request), indicating an error occurred
+    assert response.status_code == 400, f"Expected status code 400, got {response.status_code}"
+    
+    # Assert that the JSON response contains an 'error' field
+    assert 'error' in response.json(), "Response JSON does not contain 'error' field"
+    
+    # Assert that the 'error' field contains the correct error message
+    assert "Root of negative number is not allowed!" in response.json()['error'], \
+        f"Expected error message 'Root of negative number is not allowed!', got '{response.json()['error']}'"
+    
+def test_modulus_by_zero_api(client):
+
+    # Send a POST request to the '/divide' endpoint with JSON payload attempting division by zero
+    response = client.post('/modulus', json={'a': 10, 'b': 0})
+    
+    # Assert that the response status code is 400 (Bad Request), indicating an error occurred
+    assert response.status_code == 400, f"Expected status code 400, got {response.status_code}"
+    
+    # Assert that the JSON response contains an 'error' field
+    assert 'error' in response.json(), "Response JSON does not contain 'error' field"
+    
+    # Assert that the 'error' field contains the correct error message
+    assert "Modulus by zero is not allowed!" in response.json()['error'], \
+        f"Expected error message 'Modulus by zero is not allowed!', got '{response.json()['error']}'"

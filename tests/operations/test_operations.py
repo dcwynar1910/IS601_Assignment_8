@@ -1,4 +1,4 @@
-from app.operations import add, subtract, multiply, divide
+from app.operations import add, subtract, multiply, divide, power, root, modulus
 import pytest
 
 
@@ -45,3 +45,31 @@ def test_division_negative():
 def test_division_by_zero():
     with pytest.raises(ValueError, match="Cannot divide by zero!"):
         divide(57, 0)
+
+def test_power():
+    assert power(5, 2) == 25
+    assert power(10, 2) == 100
+
+def test_root():
+    assert root(9, 2) == 3
+    assert root(81, 2) == 9
+
+def test_modulus():
+    assert modulus(37, 5) == 2
+    assert modulus(5, 2) == 1
+
+def test_root_by_negative():
+    with pytest.raises(ValueError, match="Root of negative number is not allowed!"):
+        root(-5, 2)
+
+def test_root_by_zero():
+    with pytest.raises(ValueError, match="Degree of zero is not allowed!"):
+        root(5, 0)
+
+def test_power_by_zero():
+    with pytest.raises(ValueError, match="Negative power is not allowed!"):
+        power(5, -20)
+
+def test_modulus_by_zero():
+    with pytest.raises(ValueError, match="Modulus by zero is not allowed!"):
+        modulus(74, 0)
