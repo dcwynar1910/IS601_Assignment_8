@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field, field_validator  # Use @validator for Pydantic 1.x
 from fastapi.exceptions import RequestValidationError
-from app.operations import add, subtract, multiply, divide  # Ensure correct import path
+from app.operations import add, subtract, multiply, divide, power, root, modulus  # Ensure correct import path
 import uvicorn
 import logging
 import os
@@ -143,6 +143,51 @@ async def divide_route(operation: OperationRequest):
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         logger.error(f"Divide Operation Internal Error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    
+@app.post("/power", response_model=OperationResponse, responses={400: {"model": ErrorResponse}})
+async def power_route(operation: OperationRequest):
+    """
+    Power two numbers.
+    """
+    try:
+        result = power(operation.a, operation.b)
+        return OperationResponse(result=result)
+    except ValueError as e:
+        logger.error(f"Power Operation Error: {str(e)}")
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(f"Power Operation Internal Error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    
+@app.post("/root", response_model=OperationResponse, responses={400: {"model": ErrorResponse}})
+async def root_route(operation: OperationRequest):
+    """
+    Root two numbers.
+    """
+    try:
+        result = root(operation.a, operation.b)
+        return OperationResponse(result=result)
+    except ValueError as e:
+        logger.error(f"Root Operation Error: {str(e)}")
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(f"Root Operation Internal Error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    
+@app.post("/modulus", response_model=OperationResponse, responses={400: {"model": ErrorResponse}})
+async def modulus_route(operation: OperationRequest):
+    """
+    Modulus two numbers.
+    """
+    try:
+        result = modulus(operation.a, operation.b)
+        return OperationResponse(result=result)
+    except ValueError as e:
+        logger.error(f"Modulus Operation Error: {str(e)}")
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(f"Modulus Operation Internal Error: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 if __name__ == "__main__":
