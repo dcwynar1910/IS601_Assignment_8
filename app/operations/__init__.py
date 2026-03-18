@@ -124,3 +124,42 @@ def divide(a: Number, b: Number) -> float:
     result = a / b
     logging.info(f"Successful division of {a}, {b}")
     return result
+
+def power(a: Number, b: Number) -> Number:
+
+    if b < 0:
+        # Raise a ValueError with a descriptive message
+        logging.info(f"Raise error power by zero: {a}, {b}")
+        raise ValueError("Negative power is not allowed!")
+
+    # Perform power of a by b
+    result =pow(a, b)
+    logging.info(f"Successful power of {a}, {b}")
+    return result
+
+def root(a: Number, b: Number) -> Number:
+                         
+    if a < 0:
+        logging.info(f"Root of negative number is not allowed: {a}, {b}")
+        raise ValueError("Root of negative number is not allowed!")
+        
+    if b==0:
+        logging.info(f"Degree of zero is not allowed: {a}, {b}")
+        raise ValueError("Degree of zero is not allowed!")
+
+    # Perform power of a by b
+    result = pow(a, (1/b))
+    logging.info(f"Successful root of {a}, {b}")
+    return result
+    
+def modulus(a: Number, b: Number) -> Number:
+
+    if b == 0:
+        # Raise a ValueError with a descriptive message
+        logging.info(f"Modulus by zero is not allowed: {a}, {b}")
+        raise ValueError("Modulus by zero is not allowed!")
+
+    # Perform power of a by b
+    result = a%b
+    logging.info(f"Successful modulus of {a}, {b}")
+    return result
